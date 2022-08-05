@@ -1,0 +1,16 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "plusBeta": false,
+    "isCreatingSolution": true,
+    "version": "1.15.2",
+    "libraryName": "cachetest",
+    "libraryId": "0254386c-02a4-43ad-ae10-510f6b40a065",
+    "environment": "spo",
+    "packageManager": "npm",
+    "solutionName": "cachetest",
+    "solutionShortDescription": "cachetest description",
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "componentType": "webpart"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "hello-cache-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/helloCache/HelloCacheWebPart.js",
+          "manifest": "./src/webparts/helloCache/HelloCacheWebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "HelloCacheWebPartStrings": "lib/webparts/helloCache/loc/{locale}.js"
+  }
+}
