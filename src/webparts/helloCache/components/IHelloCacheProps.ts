@@ -1,3 +1,3 @@
 export interface IHelloCacheProps {
-  listItems: any[];
+  getItems: () => void;
 }

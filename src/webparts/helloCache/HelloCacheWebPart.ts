@@ -24,13 +24,14 @@ export interface IHelloCacheWebPartProps {
 
 export default class HelloCacheWebPart extends BaseClientSideWebPart<IHelloCacheWebPartProps> {
   private sp: SPFI;
-  private listItems: any[] = [];
 
   public render(): void {
     const element: React.ReactElement<IHelloCacheProps> = React.createElement(
       HelloCache,
       {
-        listItems: [],
+        getItems: () => {
+          this.getItems();
+        },
       }
     );
 
@@ -39,31 +40,54 @@ export default class HelloCacheWebPart extends BaseClientSideWebPart<IHelloCache
 
   protected onInit(): Promise<void> {
     this.sp = spfi().using(SPFx(this.context));
-    let resultP = new Promise((res, rej) => {
-      this.getItems().then(
+    return super.onInit();
+  }
+
+  private getItems(): void {
+    // get all the items from a list
+    this.sp.web.lists
+      .using(
+        IDBCaching({
+          keyFactory: () => "Key-22",
+          expireFunc: () => {
+            const time = new Date();
+            time.setSeconds(time.getSeconds() + 10);
+            return time;
+          },
+        })
+      )
+      .getByTitle("ConfigurationList")
+      .items()
+      .then(
         (items) => {
-          console.log("data fetch completed", items);
-          res(items);
+          console.log("data fetch completed-1", items);
         },
         () => {
           console.log("data fetch failed");
         }
       );
-    });
 
-    return Promise.all([super.onInit(), resultP]).then(() => {
-      return Promise.resolve();
-    });
-  }
-
-  private async getItems() {
-    // get all the items from a list
-    const items: any[] = await this.sp.web.lists
-      .using(IDBCaching())
+    this.sp.web.lists
+      .using(
+        IDBCaching({
+          keyFactory: () => "Key-11",
+          expireFunc: () => {
+            const time = new Date();
+            time.setSeconds(time.getSeconds() + 15);
+            return time;
+          },
+        })
+      )
       .getByTitle("ConfigurationList")
-      .items();
-
-    return items;
+      .items()
+      .then(
+        (items) => {
+          console.log("data fetch complete-2", items);
+        },
+        () => {
+          console.log("data fetch failed");
+        }
+      );
   }
 
   protected onDispose(): void {

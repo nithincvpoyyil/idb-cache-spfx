@@ -2,8 +2,8 @@
   "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
   "solution": {
     "name": "cachetest-client-side-solution",
-    "id": "0254386c-02a4-43ad-ae10-510f6b40a065",
-    "version": "1.0.0.0",
+    "id": "1795386c-02a4-43ad-ae10-510f6b40a867",
+    "version": "4.0.0.0",
     "includeClientSideAssets": true,
     "skipFeatureDeployment": true,
     "isDomainIsolated": false,
@@ -29,12 +29,12 @@
       {
         "title": "cachetest Feature",
         "description": "The feature that activates elements of the cachetest solution.",
-        "id": "b385e5e7-e7f0-4cdf-84e0-1978dc487e65",
+        "id": "b385e5e7-e7f0-4cdf-84e0-1978dc487e66",
         "version": "1.0.0.0"
       }
     ]
   },
   "paths": {
-    "zippedPackage": "solution/cachetest.sppkg"
+    "zippedPackage": "solution/cachetestnew.sppkg"
   }
 }
