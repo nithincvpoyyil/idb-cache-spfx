@@ -19,7 +19,7 @@ import HelloCache from "./components/HelloCache";
 import { IHelloCacheProps } from "./components/IHelloCacheProps";
 
 export interface IHelloCacheWebPartProps {
-  description: string;
+  description: string;   
 }
 
 export default class HelloCacheWebPart extends BaseClientSideWebPart<IHelloCacheWebPartProps> {
@@ -48,7 +48,7 @@ export default class HelloCacheWebPart extends BaseClientSideWebPart<IHelloCache
     this.sp.web.lists
       .using(
         IDBCaching({
-          keyFactory: () => "Key-22",
+          keyFactory: () => "data-key-1",
           expireFunc: () => {
             const time = new Date();
             time.setSeconds(time.getSeconds() + 10);
@@ -70,10 +70,10 @@ export default class HelloCacheWebPart extends BaseClientSideWebPart<IHelloCache
     this.sp.web.lists
       .using(
         IDBCaching({
-          keyFactory: () => "Key-11",
+          keyFactory: () => "data-key-2",
           expireFunc: () => {
             const time = new Date();
-            time.setSeconds(time.getSeconds() + 15);
+            time.setSeconds(time.getSeconds() + 20);
             return time;
           },
         })
