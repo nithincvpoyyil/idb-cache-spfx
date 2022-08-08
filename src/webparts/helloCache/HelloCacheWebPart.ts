@@ -7,8 +7,6 @@ import {
 } from "@microsoft/sp-property-pane";
 import { BaseClientSideWebPart } from "@microsoft/sp-webpart-base";
 
-import { IDBCaching } from "@simpletech/pnp-idb-cache";
-
 import { SPFI, spfi, SPFx } from "@pnp/sp";
 import "@pnp/sp/webs";
 import "@pnp/sp/lists";
@@ -19,7 +17,7 @@ import HelloCache from "./components/HelloCache";
 import { IHelloCacheProps } from "./components/IHelloCacheProps";
 
 export interface IHelloCacheWebPartProps {
-  description: string;   
+  description: string;
 }
 
 export default class HelloCacheWebPart extends BaseClientSideWebPart<IHelloCacheWebPartProps> {
@@ -29,9 +27,8 @@ export default class HelloCacheWebPart extends BaseClientSideWebPart<IHelloCache
     const element: React.ReactElement<IHelloCacheProps> = React.createElement(
       HelloCache,
       {
-        getItems: () => {
-          this.getItems();
-        },
+        sp: this.sp,
+        context: this.context,
       }
     );
 
@@ -42,54 +39,6 @@ export default class HelloCacheWebPart extends BaseClientSideWebPart<IHelloCache
     this.sp = spfi().using(SPFx(this.context));
     return super.onInit();
   }
-
-  private getItems(): void {
-    // get all the items from a list
-    this.sp.web.lists
-      .using(
-        IDBCaching({
-          keyFactory: () => "data-key-1",
-          expireFunc: () => {
-            const time = new Date();
-            time.setSeconds(time.getSeconds() + 10);
-            return time;
-          },
-        })
-      )
-      .getByTitle("ConfigurationList")
-      .items()
-      .then(
-        (items) => {
-          console.log("data fetch completed-1", items);
-        },
-        () => {
-          console.log("data fetch failed");
-        }
-      );
-
-    this.sp.web.lists
-      .using(
-        IDBCaching({
-          keyFactory: () => "data-key-2",
-          expireFunc: () => {
-            const time = new Date();
-            time.setSeconds(time.getSeconds() + 20);
-            return time;
-          },
-        })
-      )
-      .getByTitle("ConfigurationList")
-      .items()
-      .then(
-        (items) => {
-          console.log("data fetch complete-2", items);
-        },
-        () => {
-          console.log("data fetch failed");
-        }
-      );
-  }
-
   protected onDispose(): void {
     ReactDom.unmountComponentAtNode(this.domElement);
   }

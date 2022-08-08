@@ -1,3 +1,7 @@
+import { WebPartContext } from "@microsoft/sp-webpart-base";
+import { SPFI } from "@pnp/sp";
+
 export interface IHelloCacheProps {
-  getItems: () => void;
+  sp: SPFI;
+  context: WebPartContext;
 }
